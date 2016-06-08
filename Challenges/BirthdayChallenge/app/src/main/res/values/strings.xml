@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Birthday Challenge</string>
+    <string name="hint_name">Enter your name here</string>
+    <string name="btn_days">Days to next birthday</string>
+    <string name="error_name">Please enter your name</string>
+    <string name="toast_bday">, happy birthday!</string>
+    <string name="toast_num_days_pre">", your birthday is in "</string>
+    <string name="toast_num_days_post">" days."</string>
+    <string name="tv_dob_datepicker">Select your Date of Birth below:</string>
+</resources>

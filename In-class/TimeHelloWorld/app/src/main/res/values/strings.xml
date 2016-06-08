@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TimeHelloWorld</string>
+    <string name="btn_time">Show time!</string>
+    <string name="tv_time">Hello World!</string>
+    <string name="time_header">, current time is: </string>
+    <string name="hint_name">Enter your name here</string>
+    <string name="error_name">This field cannot be empty.</string>
+</resources>
