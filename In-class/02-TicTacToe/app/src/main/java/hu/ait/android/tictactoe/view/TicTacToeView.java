@@ -14,6 +14,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.ait.android.tictactoe.MainActivity;
 import hu.ait.android.tictactoe.R;
 import hu.ait.android.tictactoe.model.TicTacToeModel;
 
@@ -77,7 +78,7 @@ public class TicTacToeView extends View {
                     canvas.drawCircle(centerX, centerY, radius, paintLine);
 
                 } else if (TicTacToeModel.getInstance().getFieldContent(i, j) == TicTacToeModel.CROSS) {
-                    canvas.drawLine(i * getWidth() / 3 + 24 ,
+                    canvas.drawLine(i * getWidth() / 3 + 24,
                             j * getHeight() / 3 + 24,
                             (i + 1) * getWidth() / 3 - 24,
                             (j + 1) * getHeight() / 3 - 24, paintLine);
@@ -97,10 +98,14 @@ public class TicTacToeView extends View {
             int x = ((int) event.getX()) / (getWidth() / 3);
             int y = ((int) event.getY()) / (getHeight() / 3);
 
-            if (x<3 && y<3 && TicTacToeModel.getInstance().getFieldContent(x, y) == TicTacToeModel.EMPTY) {
+            if (x < 3 && y < 3 && TicTacToeModel.getInstance().getFieldContent(x, y) == TicTacToeModel.EMPTY) {
                 TicTacToeModel.getInstance().setFieldContent(x, y,
                         TicTacToeModel.getInstance().getNextPlayer());
                 TicTacToeModel.getInstance().changeNextPlayer();
+
+                ((MainActivity) getContext()).showToastMessage(
+                        getResources().getString(R.string.toast_next_player,
+                                TicTacToeModel.getInstance().getNextPlayer()));
             }
 
             invalidate();
