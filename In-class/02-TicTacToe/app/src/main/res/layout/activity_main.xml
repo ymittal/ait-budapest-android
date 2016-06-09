@@ -16,8 +16,14 @@
         android:text="@string/tv_tictactoe" />
 
     <hu.ait.android.tictactoe.view.TicTacToeView
+        android:id="@+id/gameView"
         android:layout_width="256dp"
         android:layout_height="256dp" />
 
-    <!-- draw game are here -->
+    <Button
+        android:id="@+id/btnRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_restart" />
+
 </LinearLayout>

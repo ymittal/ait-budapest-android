@@ -12,9 +12,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Yash Mittal on 2016. 06. 08..
- */
 public class TicTacToeView extends View {
 
     private Paint paintBG;
@@ -44,11 +41,22 @@ public class TicTacToeView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // draw background here
-        canvas.drawRect(0, 0, getWidth(), getHeight(), paintBG);
-        canvas.drawLine(0, 0, getWidth(), getHeight(), paintLine);
+        drawBackground(canvas);
+        drawGrid(canvas);
+        drawPlayers(canvas);
+    }
 
-        // draw circles
+    private void drawBackground(Canvas canvas) {
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paintBG);
+    }
+
+    private void drawGrid(Canvas canvas) {
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paintLine);
+        canvas.drawRect(0, getHeight()/3, getWidth(), 2*getHeight()/3, paintLine);
+        canvas.drawRect(getWidth()/3, 0, 2*getWidth()/3, getHeight(), paintLine);
+    }
+
+    private void drawPlayers(Canvas canvas) {
         for (Point circleCoordinate : circleCoordinates) {
             canvas.drawCircle(circleCoordinate.x, circleCoordinate.y, 40, paintCircle);
         }
@@ -61,7 +69,11 @@ public class TicTacToeView extends View {
 
             invalidate(); // tells Android that current view is not valid, so view has to be redrawn
         }
-
         return true;
+    }
+
+    public void clearGameArea() {
+        circleCoordinates.clear();
+        invalidate();
     }
 }
