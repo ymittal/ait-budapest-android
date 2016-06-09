@@ -1,6 +1,8 @@
 package hu.ait.android.tictactoe.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,29 +14,33 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.ait.android.tictactoe.R;
 import hu.ait.android.tictactoe.model.TicTacToeModel;
 
 public class TicTacToeView extends View {
 
-    private Paint paintBG;
+    private Bitmap bitmapBg;
+
     private Paint paintLine;
     private Paint paintCircle;
 
     public TicTacToeView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        paintBG = new Paint();
-        paintBG.setColor(Color.BLACK);
-        paintBG.setStyle(Paint.Style.FILL);
+        bitmapBg = BitmapFactory.decodeResource(getResources(), R.drawable.grass);
 
         paintLine = new Paint();
         paintLine.setColor(Color.GRAY);
         paintLine.setStyle(Paint.Style.STROKE);
         paintLine.setStrokeWidth(5);
+    }
 
-        paintCircle = new Paint();
-        paintCircle.setColor(Color.BLUE);
-        paintCircle.setStyle(Paint.Style.FILL);
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        bitmapBg = Bitmap.createScaledBitmap(bitmapBg,
+                getWidth(), getHeight(), false);
     }
 
     @Override
@@ -47,7 +53,7 @@ public class TicTacToeView extends View {
     }
 
     private void drawBackground(Canvas canvas) {
-        canvas.drawRect(0, 0, getWidth(), getHeight(), paintBG);
+        canvas.drawBitmap(bitmapBg, 0, 0, null);
     }
 
     private void drawGrid(Canvas canvas) {
