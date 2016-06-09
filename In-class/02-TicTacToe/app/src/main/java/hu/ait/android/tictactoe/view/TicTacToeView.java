@@ -52,18 +52,52 @@ public class TicTacToeView extends View {
 
     private void drawGrid(Canvas canvas) {
         canvas.drawRect(0, 0, getWidth(), getHeight(), paintLine);
-        canvas.drawRect(0, getHeight()/3, getWidth(), 2*getHeight()/3, paintLine);
-        canvas.drawRect(getWidth()/3, 0, 2*getWidth()/3, getHeight(), paintLine);
+        canvas.drawRect(0, getHeight() / 3, getWidth(), 2 * getHeight() / 3, paintLine);
+        canvas.drawRect(getWidth() / 3, 0, 2 * getWidth() / 3, getHeight(), paintLine);
     }
 
     private void drawPlayers(Canvas canvas) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (TicTacToeModel.getInstance().getFieldContent(i, j) == TicTacToeModel.CIRCLE) {
+
+                    // draw a circle at the center of the field
+
+                    // X coordinate: left side of the square + half width of the square
+                    float centerX = i * getWidth() / 3 + getWidth() / 6;
+                    float centerY = j * getHeight() / 3 + getHeight() / 6;
+                    int radius = getHeight() / 6 - 18;
+
+                    canvas.drawCircle(centerX, centerY, radius, paintLine);
+
+                } else if (TicTacToeModel.getInstance().getFieldContent(i, j) == TicTacToeModel.CROSS) {
+                    canvas.drawLine(i * getWidth() / 3 + 24 ,
+                            j * getHeight() / 3 + 24,
+                            (i + 1) * getWidth() / 3 - 24,
+                            (j + 1) * getHeight() / 3 - 24, paintLine);
+
+                    canvas.drawLine((i + 1) * getWidth() / 3 - 24,
+                            j * getHeight() / 3 + 24,
+                            i * getWidth() / 3 + 24,
+                            (j + 1) * getHeight() / 3 - 24, paintLine);
+                }
+            }
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            int x = ((int) event.getX()) / (getWidth() / 3);
+            int y = ((int) event.getY()) / (getHeight() / 3);
 
-            invalidate(); // tells Android that current view is not valid, so view has to be redrawn
+            if (x<3 && y<3 && TicTacToeModel.getInstance().getFieldContent(x, y) == TicTacToeModel.EMPTY) {
+                TicTacToeModel.getInstance().setFieldContent(x, y,
+                        TicTacToeModel.getInstance().getNextPlayer());
+                TicTacToeModel.getInstance().changeNextPlayer();
+            }
+
+            invalidate();
         }
         return true;
     }
@@ -71,5 +105,16 @@ public class TicTacToeView extends View {
     public void clearGameArea() {
         TicTacToeModel.getInstance().resetModel();
         invalidate();
+    }
+
+    /*
+    Dynamically sets width and height of game board
+     */
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int w = MeasureSpec.getSize(widthMeasureSpec);
+        int h = MeasureSpec.getSize(heightMeasureSpec);
+        int d = (w == 0 ? h : (h == 0 ? w : (w < h ? w : h)));
+        setMeasuredDimension(d, d);
     }
 }
