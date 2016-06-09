@@ -12,13 +12,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.ait.android.tictactoe.model.TicTacToeModel;
+
 public class TicTacToeView extends View {
 
     private Paint paintBG;
     private Paint paintLine;
     private Paint paintCircle;
-
-    private List<Point> circleCoordinates = new ArrayList<Point>();
 
     public TicTacToeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -57,15 +57,11 @@ public class TicTacToeView extends View {
     }
 
     private void drawPlayers(Canvas canvas) {
-        for (Point circleCoordinate : circleCoordinates) {
-            canvas.drawCircle(circleCoordinate.x, circleCoordinate.y, 40, paintCircle);
-        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            circleCoordinates.add(new Point((int) event.getX(), (int) event.getY()));
 
             invalidate(); // tells Android that current view is not valid, so view has to be redrawn
         }
@@ -73,7 +69,7 @@ public class TicTacToeView extends View {
     }
 
     public void clearGameArea() {
-        circleCoordinates.clear();
+        TicTacToeModel.getInstance().resetModel();
         invalidate();
     }
 }
