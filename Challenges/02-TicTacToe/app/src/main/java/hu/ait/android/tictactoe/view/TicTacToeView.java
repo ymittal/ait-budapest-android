@@ -98,14 +98,27 @@ public class TicTacToeView extends View {
             int x = ((int) event.getX()) / (getWidth() / 3);
             int y = ((int) event.getY()) / (getHeight() / 3);
 
-            if (x < 3 && y < 3 && TicTacToeModel.getInstance().getFieldContent(x, y) == TicTacToeModel.EMPTY) {
+            if (x < 3 && y < 3 && TicTacToeModel.getInstance().getFieldContent(x, y) == TicTacToeModel.EMPTY
+                    && TicTacToeModel.getInstance().isGameOver() == TicTacToeModel.EMPTY) {
                 TicTacToeModel.getInstance().setFieldContent(x, y,
                         TicTacToeModel.getInstance().getNextPlayer());
                 TicTacToeModel.getInstance().changeNextPlayer();
 
-                ((MainActivity) getContext()).showToastMessage(
-                        getResources().getString(R.string.toast_next_player,
-                                TicTacToeModel.getInstance().getNextPlayer()));
+                short currentState = TicTacToeModel.getInstance().isGameOver();
+                if (currentState == TicTacToeModel.EMPTY) {
+                    if (TicTacToeModel.getInstance().isGridFull()) {
+                        ((MainActivity) getContext()).showToastMessage(
+                                getResources().getString(R.string.toast_draw));
+                    } else {
+                        ((MainActivity) getContext()).showToastMessage(
+                                getResources().getString(R.string.toast_next_player,
+                                        TicTacToeModel.getInstance().getNextPlayer()));
+                    }
+                } else {
+                    ((MainActivity) getContext()).showToastMessage(
+                            getResources().getString(R.string.toast_winner,
+                                    currentState));
+                }
             }
 
             invalidate();
