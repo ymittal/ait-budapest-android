@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,10 +16,17 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="hu.ait.android.tictactoe.MainActivity">
 
-        <TextView
+        <Chronometer
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_tictactoe" />
+            android:id="@+id/chronometer1"
+            android:layout_gravity="left" />
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chronometer2"
+            android:layout_gravity="right" />
 
         <hu.ait.android.tictactoe.view.TicTacToeView
             android:id="@+id/gameView"
@@ -31,8 +37,8 @@
             android:id="@+id/btnRestart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_restart"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:text="@string/btn_restart" />
 
     </LinearLayout>
 

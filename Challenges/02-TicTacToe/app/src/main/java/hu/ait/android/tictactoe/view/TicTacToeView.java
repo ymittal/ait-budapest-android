@@ -24,6 +24,7 @@ public class TicTacToeView extends View {
 
     private Paint paintLine;
     private Paint paintCircle;
+    private Paint paintCross;
 
     public TicTacToeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -31,9 +32,19 @@ public class TicTacToeView extends View {
         bitmapBg = BitmapFactory.decodeResource(getResources(), R.drawable.grass);
 
         paintLine = new Paint();
-        paintLine.setColor(Color.GRAY);
+        paintLine.setColor(0xFF8BC34A);
         paintLine.setStyle(Paint.Style.STROKE);
-        paintLine.setStrokeWidth(5);
+        paintLine.setStrokeWidth(10);
+
+        paintCircle = new Paint();
+        paintCircle.setColor(0xFFF8BBD0);
+        paintCircle.setStyle(Paint.Style.STROKE);
+        paintCircle.setStrokeWidth(5);
+
+        paintCross = new Paint();
+        paintCross.setColor(0xFF9FA8DA);
+        paintCross.setStyle(Paint.Style.STROKE);
+        paintCross.setStrokeWidth(5);
     }
 
     @Override
@@ -67,26 +78,22 @@ public class TicTacToeView extends View {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (TicTacToeModel.getInstance().getFieldContent(i, j) == TicTacToeModel.CIRCLE) {
-
-                    // draw a circle at the center of the field
-
-                    // X coordinate: left side of the square + half width of the square
                     float centerX = i * getWidth() / 3 + getWidth() / 6;
                     float centerY = j * getHeight() / 3 + getHeight() / 6;
-                    int radius = getHeight() / 6 - 18;
+                    int radius = getHeight() / 6 - 42;
 
-                    canvas.drawCircle(centerX, centerY, radius, paintLine);
+                    canvas.drawCircle(centerX, centerY, radius, paintCircle);
 
                 } else if (TicTacToeModel.getInstance().getFieldContent(i, j) == TicTacToeModel.CROSS) {
-                    canvas.drawLine(i * getWidth() / 3 + 24,
-                            j * getHeight() / 3 + 24,
-                            (i + 1) * getWidth() / 3 - 24,
-                            (j + 1) * getHeight() / 3 - 24, paintLine);
+                    canvas.drawLine(i * getWidth() / 3 + 48,
+                            j * getHeight() / 3 + 48,
+                            (i + 1) * getWidth() / 3 - 48,
+                            (j + 1) * getHeight() / 3 - 48, paintCross);
 
-                    canvas.drawLine((i + 1) * getWidth() / 3 - 24,
-                            j * getHeight() / 3 + 24,
-                            i * getWidth() / 3 + 24,
-                            (j + 1) * getHeight() / 3 - 24, paintLine);
+                    canvas.drawLine((i + 1) * getWidth() / 3 - 48,
+                            j * getHeight() / 3 + 48,
+                            i * getWidth() / 3 + 48,
+                            (j + 1) * getHeight() / 3 - 48, paintCross);
                 }
             }
         }
