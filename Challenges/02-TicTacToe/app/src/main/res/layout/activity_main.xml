@@ -19,14 +19,8 @@
         <Chronometer
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/chronometer1"
-            android:layout_gravity="left" />
-
-        <Chronometer
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/chronometer2"
-            android:layout_gravity="right" />
+            android:id="@+id/chronometer"
+            android:layout_gravity="center_horizontal" />
 
         <hu.ait.android.tictactoe.view.TicTacToeView
             android:id="@+id/gameView"

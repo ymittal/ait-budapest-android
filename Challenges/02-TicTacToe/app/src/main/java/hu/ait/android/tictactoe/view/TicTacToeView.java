@@ -107,24 +107,26 @@ public class TicTacToeView extends View {
 
             if (x < 3 && y < 3 && TicTacToeModel.getInstance().getFieldContent(x, y) == TicTacToeModel.EMPTY
                     && TicTacToeModel.getInstance().isGameOver() == TicTacToeModel.EMPTY) {
+                MainActivity c = (MainActivity) getContext();
                 TicTacToeModel.getInstance().setFieldContent(x, y,
                         TicTacToeModel.getInstance().getNextPlayer());
+
+                c.switchChronometerTime();
                 TicTacToeModel.getInstance().changeNextPlayer();
 
                 short currentState = TicTacToeModel.getInstance().isGameOver();
                 if (currentState == TicTacToeModel.EMPTY) {
                     if (TicTacToeModel.getInstance().isGridFull()) {
-                        ((MainActivity) getContext()).showToastMessage(
-                                getResources().getString(R.string.toast_draw));
+                        c.showToastMessage(getResources().getString(R.string.toast_draw));
+                        c.stopChronometer();
                     } else {
-                        ((MainActivity) getContext()).showToastMessage(
-                                getResources().getString(R.string.toast_next_player,
-                                        TicTacToeModel.getInstance().getNextPlayer()));
+                        c.showToastMessage(getResources().getString(R.string.toast_next_player,
+                                TicTacToeModel.getInstance().getNextPlayer()));
                     }
                 } else {
-                    ((MainActivity) getContext()).showToastMessage(
-                            getResources().getString(R.string.toast_winner,
-                                    currentState));
+                    c.showToastMessage(getResources().getString(R.string.toast_winner,
+                            currentState));
+                    c.stopChronometer();
                 }
             }
 

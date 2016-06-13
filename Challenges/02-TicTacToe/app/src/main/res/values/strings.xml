@@ -6,4 +6,5 @@
     <string name="snackbar_ques">Are you sure?</string>
     <string name="toast_winner">Player %1$d won the game!</string>
     <string name="toast_draw">Game drawn!</string>
+    <string name="toast_timings">Player 1 time: %1$d s\nPlayer 2 time: %2$d s</string>
 </resources>
