@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class MinesweeperModel {
-    public final static short SIZE = 5;
-    public final static short NUM_MINES = 5;
+    public final static int SIZE = 5;
+    public final static int NUM_MINES = 5;
 
     private static MinesweeperModel instance = null;
 
@@ -18,7 +18,7 @@ public class MinesweeperModel {
         return instance;
     }
 
-    private short[][] model = new short[SIZE][SIZE];
+    private int[][] model = new int[SIZE][SIZE];
     private short[][] board = new short[SIZE][SIZE];
 
     public static final short CLOSE = 0; // not clicked yet
@@ -31,18 +31,17 @@ public class MinesweeperModel {
     }
 
     private void initModel() {
-        /*Random r = new Random();
-        short minesOnModel = 0;
+        Random r = new Random();
+        int minesOnModel = 0;
 
         while (minesOnModel < NUM_MINES) {
-            short x = (short) r.nextInt(SIZE);
-            short y = (short) r.nextInt(SIZE);
+            int x = r.nextInt(SIZE);
+            int y = r.nextInt(SIZE);
             if (model[x][y] != -1) {
                 model[x][y] = -1;
                 minesOnModel += 1;
             }
-        }*/
-        model[0][0] = model[1][2] = model[4][2] = model[1][0] = model[3][1] = -1;
+        }
 
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -70,8 +69,12 @@ public class MinesweeperModel {
         return true;
     }
 
-    public boolean isVisible(int x, int y) {
-        return board[x][y] == OPEN;
+    public short getFieldStatus(int x, int y) {
+        return board[x][y];
+    }
+
+    public void clickField(int x, int y) {
+        board[x][y] = OPEN;
     }
 
     private void setNumOfNeighboringMines(int i, int j) {
@@ -88,7 +91,7 @@ public class MinesweeperModel {
         return (m >= 0 && m < SIZE && n >= 0 && n < SIZE);
     }
 
-    public short getNumOfNeighboringMines(int x, int y) {
+    public int getNumOfNeighboringMines(int x, int y) {
         return model[x][y];
     }
 

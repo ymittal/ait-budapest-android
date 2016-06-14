@@ -4,17 +4,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import hu.ait.android.minesweeper.MainActivity;
 import hu.ait.android.minesweeper.model.MinesweeperModel;
 
 public class MinesweeperView extends View {
-    private short gridSize;
+    public static final String LOG_TAG = "TAG";
+    private int gridSize;
     private Paint paintGridLine;
 
     public MinesweeperView(Context context, AttributeSet attrs) {
@@ -32,15 +33,32 @@ public class MinesweeperView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        drawGrid(canvas);
+        drawLines(canvas);
+        drawVisibleGrid(canvas);
     }
 
-    private void drawGrid(Canvas canvas) {
+    private void drawLines(Canvas canvas) {
         for (int i = 0; i <= gridSize; ++i) {
             canvas.drawLine(0, i * getHeight() / gridSize,
                     getWidth(), i * getHeight() / gridSize, paintGridLine);
             canvas.drawLine(i * getWidth() / gridSize, 0,
                     i * getWidth() / gridSize, getHeight(), paintGridLine);
+        }
+    }
+
+    private void drawVisibleGrid(Canvas canvas) {
+        for (int i = 0; i < gridSize; ++i) {
+            for (int j = 0; j < gridSize; ++j) {
+                short status = MinesweeperModel.getInstance().getFieldStatus(i, j);
+                if (status == MinesweeperModel.OPEN) {
+                    // draw number of neighboring mines
+                    canvas.drawText(Integer.toString(MinesweeperModel.getInstance().getNumOfNeighboringMines(i, j)),
+                            50, 50, paintGridLine);
+                }
+                else if (status == MinesweeperModel.FLAG) {
+                    // draw a flag
+                }
+            }
         }
     }
 
@@ -53,19 +71,29 @@ public class MinesweeperView extends View {
 
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
-                    Log.d("Press", "onSingleTapUp");
+                    Point point = getPoint(e);
+                    MinesweeperModel.getInstance().clickField(point.x, point.y);
+                    invalidate();
                     return true;
                 }
 
                 @Override
                 public void onLongPress(MotionEvent e) {
-                    Log.d("Press", "Long press!");
+                    Point point = getPoint(e);
+                    MinesweeperModel.getInstance().setFlag(point.x, point.y);
+                    invalidate();
                 }
             });
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
+    }
+
+    private Point getPoint(MotionEvent e) {
+        int x = ((int) e.getX()) / (getWidth() / gridSize);
+        int y = ((int) e.getY()) / (getHeight() / gridSize);
+        return new Point(y, x);
     }
 
     @Override
