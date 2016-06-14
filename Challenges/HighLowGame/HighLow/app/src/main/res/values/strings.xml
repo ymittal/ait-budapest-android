@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">HighLow</string>
+    <string name="tv_congrats">Congratulations, you correctly guessed the number in %1$s attempt(s).</string>
+    <string name="toast_guess_small">Guess too small!</string>
+    <string name="toast_guess_large">Guess too large!</string>
+    <string name="tv_num_try">Number of guesses: %1$d</string>
+    <string name="btn_guess">Submit Guess</string>
+    <string name="tv_num_try_before">Number of guesses: 0</string>
+    <string name="btn_okay">Okay</string>
+    <string name="btn_about">About</string>
+    <string name="btn_help">Help</string>
+    <string name="btn_start">Start</string>
+    <string name="snackbar_about">This application was made by Yash Mittal.</string>
+    <string name="snackbar_help">Guess numbers between 0 and 99 until you submit the one randomly generated.</string>
+    <string name="snackbar_btn_close">Close</string>
+</resources>
