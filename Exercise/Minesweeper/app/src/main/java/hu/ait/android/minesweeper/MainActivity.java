@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import hu.ait.android.minesweeper.model.MinesweeperModel;
 import hu.ait.android.minesweeper.view.MinesweeperView;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MinesweeperView gameboard = (MinesweeperView) findViewById(R.id.gameboard);
+        MinesweeperView board = (MinesweeperView) findViewById(R.id.gameboard);
+        MinesweeperModel.getInstance();
     }
 
     public void showToastMessage(String message) {
