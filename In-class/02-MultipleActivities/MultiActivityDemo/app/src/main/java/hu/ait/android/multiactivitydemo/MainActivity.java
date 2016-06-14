@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import hu.ait.android.multiactivitydemo.data.User;
+import hu.ait.android.multiactivitydemo.data.UserDataManager;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static final String KEY_USERNAME = "KEY_USERNAME";
-    public static final String KEY_ADDRESS = "KEY_ADDRESS";
+    public static final String KEY_USER = "KEY_USER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentDetails = new Intent();
                 intentDetails.setClass(MainActivity.this,
                         DetailActivity.class);
-                intentDetails.putExtra(KEY_USERNAME, etUsername.getText().toString())
-                        .putExtra(KEY_ADDRESS, etAddress.getText().toString());
+
+                /*intentDetails.putExtra(KEY_USER, new User(
+                        etUsername.getText().toString(), etAddress.getText().toString()
+                ));*/
+
+                UserDataManager.getInstance().setUser(new User(
+                        etUsername.getText().toString(),etAddress.getText().toString()));
+
                 startActivity(intentDetails);
             }
         });

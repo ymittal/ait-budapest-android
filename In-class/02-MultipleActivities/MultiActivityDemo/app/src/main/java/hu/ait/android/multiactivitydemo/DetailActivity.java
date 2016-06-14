@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import hu.ait.android.multiactivitydemo.data.User;
+import hu.ait.android.multiactivitydemo.data.UserDataManager;
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -13,12 +16,14 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView tvDetails = (TextView) findViewById(R.id.tvDetails);
 
-        if(getIntent().hasExtra(MainActivity.KEY_USERNAME)
-                && getIntent().hasExtra(MainActivity.KEY_ADDRESS)) {
-            String username = getIntent().getStringExtra(MainActivity.KEY_USERNAME);
-            String address = getIntent().getStringExtra(MainActivity.KEY_ADDRESS);
+        /*if(getIntent().hasExtra(MainActivity.KEY_USER)) {
+            User user = (User) getIntent().getSerializableExtra(MainActivity.KEY_USER);
 
-            tvDetails.setText(getString(R.string.tv_details, username, address));
-        }
+            tvDetails.setText(getString(R.string.tv_details, user.getUsername(), user.getAddress()));
+        }*/
+
+        tvDetails.setText(getString(R.string.tv_details,
+                UserDataManager.getInstance().getUser().getUsername(),
+                UserDataManager.getInstance().getUser().getAddress()));
     }
 }
