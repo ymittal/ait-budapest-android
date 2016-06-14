@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MultiActivityDemo</string>
+    <string name="et_username">Your username here</string>
+    <string name="et_address">Your address here</string>
+    <string name="btn_submit">Submit</string>
+    <string name="tv_details">Hello %1$s, your address is %2$s.</string>
+</resources>
