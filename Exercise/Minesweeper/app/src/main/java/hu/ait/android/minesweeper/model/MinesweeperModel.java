@@ -28,6 +28,7 @@ public class MinesweeperModel {
     private MinesweeperModel() {
         initModel();
         initBoard();
+        Log.d("Hello", Arrays.deepToString(model));
     }
 
     private void initModel() {
@@ -101,5 +102,9 @@ public class MinesweeperModel {
 
     public void removeFlag(int x, int y) {
         board[x][y] = CLOSE;
+    }
+
+    public boolean isMineAtLocation(int x, int y) {
+        return model[x][y] == -1;
     }
 }
