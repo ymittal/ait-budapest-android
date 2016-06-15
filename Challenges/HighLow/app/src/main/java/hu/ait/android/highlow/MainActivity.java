@@ -8,46 +8,42 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity {
     private Snackbar sb;
+    private LinearLayout root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        final LinearLayout layoutRoot = (LinearLayout) findViewById(R.id.layoutRoot);
-        Button btnStart = (Button) findViewById(R.id.btnStart);
-        Button btnHelp = (Button) findViewById(R.id.btnHelp);
-        Button btnAbout = (Button) findViewById(R.id.btnAbout);
+        root = (LinearLayout) findViewById(R.id.layoutRoot);
+    }
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGameActivity();
-            }
-        });
+    @OnClick(R.id.btnStart)
+    public void start(View view) {
+        openGameActivity();
+    }
 
-        btnHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sb = Snackbar.make(layoutRoot, R.string.snackbar_help, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.snackbar_btn_close, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                sb.dismiss();
-                            }
-                        });
-                sb.show();
-            }
-        });
+    @OnClick(R.id.btnHelp)
+    public void about(View view) {
+        sb = Snackbar.make(root, R.string.snackbar_help, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.snackbar_btn_close, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sb.dismiss();
+                    }
+                });
+        sb.show();
+    }
 
-        btnAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(layoutRoot, R.string.snackbar_about, Snackbar.LENGTH_SHORT).show();
-            }
-        });
+    @OnClick(R.id.btnAbout)
+    public void help(View view) {
+        Snackbar.make(root, R.string.snackbar_about, Snackbar.LENGTH_SHORT).show();
     }
 
     private void openGameActivity() {

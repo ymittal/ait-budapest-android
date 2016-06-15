@@ -12,37 +12,40 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class GameActivity extends AppCompatActivity {
     public static final String KEY_NUM_TRY = "KEY_NUM_TRY";
     private int numTry = 0;
+    private int target;
+
+    @BindView(R.id.etGuess) EditText etGuess;
+    @BindView(R.id.tvNumTry) TextView tvNumTry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        ButterKnife.bind(this);
 
-        final int target = new Random().nextInt(100);
+        target = new Random().nextInt(100);
+    }
 
-        final EditText etGuess = (EditText) findViewById(R.id.etGuess);
-        final TextView tvNumTry = (TextView) findViewById(R.id.tvNumTry);
+    @OnClick(R.id.btnGuess)
+    public void guess(View view) {
+        numTry += 1;
+        tvNumTry.setText(getString(R.string.tv_num_try, numTry));
 
-        Button btnGuess = (Button) findViewById(R.id.btnGuess);
-        btnGuess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                numTry += 1;
-                tvNumTry.setText(getString(R.string.tv_num_try, numTry));
-
-                int guess = Integer.parseInt(etGuess.getText().toString());
-                if (target == guess) {
-                    openWinnerDialog();
-                } else if (target > guess) {
-                    Toast.makeText(GameActivity.this, R.string.toast_guess_small, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(GameActivity.this, R.string.toast_guess_large, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        int guess = Integer.parseInt(etGuess.getText().toString());
+        if (target == guess) {
+            openWinnerDialog();
+        } else if (target > guess) {
+            Toast.makeText(GameActivity.this, R.string.toast_guess_small, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(GameActivity.this, R.string.toast_guess_large, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openWinnerDialog() {

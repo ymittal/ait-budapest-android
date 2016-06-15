@@ -8,26 +8,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class winnerDialog extends AppCompatActivity {
+    @BindView(R.id.tvCongrats) TextView tvCongrats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winner_dialog);
+        ButterKnife.bind(this);
+
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT); // resize dialog appropriately
         this.setFinishOnTouchOutside(false); // disable touch outside dialog
 
-        TextView tvCongrats = (TextView) findViewById(R.id.tvCongrats);
         tvCongrats.setText(getString(R.string.tv_congrats, getIntent().getStringExtra(GameActivity.KEY_NUM_TRY)));
+    }
 
-        Button btnOkay = (Button) findViewById(R.id.btnOkay);
-        btnOkay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMainActivity();
-            }
-        });
+    @OnClick(R.id.btnOkay)
+    public void okay(View view) {
+        openMainActivity();
     }
 
     private void openMainActivity() {
