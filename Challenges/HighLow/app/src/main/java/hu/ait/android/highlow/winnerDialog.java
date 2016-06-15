@@ -5,14 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class winnerDialog extends AppCompatActivity {
+public class WinnerDialog extends AppCompatActivity {
     @BindView(R.id.tvCongrats) TextView tvCongrats;
 
     @Override
@@ -34,7 +33,7 @@ public class winnerDialog extends AppCompatActivity {
     }
 
     private void openMainActivity() {
-        Intent main = new Intent(winnerDialog.this, MainActivity.class);
+        Intent main = new Intent(WinnerDialog.this, MainActivity.class);
         main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
     }

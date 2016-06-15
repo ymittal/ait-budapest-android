@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".GameActivity"></activity>
         <activity
-            android:name=".winnerDialog"
+            android:name=".WinnerDialog"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
 
