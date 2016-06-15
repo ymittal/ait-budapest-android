@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class MinesweeperModel {
-    public final static int SIZE = 5;
-    public final static int NUM_MINES = 5;
+    public static int SIZE = 5;
+    public static int NUM_MINES = 3;
 
     private static MinesweeperModel instance = null;
 
@@ -28,7 +28,7 @@ public class MinesweeperModel {
     private MinesweeperModel() {
         initModel();
         initBoard();
-        Log.d("Hello", Arrays.deepToString(model));
+        Log.d("LOG_TAG", Arrays.deepToString(model));
     }
 
     private void initModel() {
@@ -76,6 +76,17 @@ public class MinesweeperModel {
 
     public void clickField(int x, int y) {
         board[x][y] = OPEN;
+        if (model[x][y] == 0) {
+            for (int m = x - 1; m <= x + 1; ++m) {
+                for (int n = y - 1; n <= y + 1; ++n) {
+                    if (isWithinBounds(m, n) && board[m][n] == CLOSE
+                            && model[m][n] != -1)
+                        clickField(m, n);
+                }
+            }
+        } else {
+            return;
+        }
     }
 
     private void setNumOfNeighboringMines(int i, int j) {

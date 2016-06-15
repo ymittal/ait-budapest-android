@@ -8,12 +8,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import hu.ait.android.minesweeper.MainActivity;
 import hu.ait.android.minesweeper.R;
 import hu.ait.android.minesweeper.model.MinesweeperModel;
 
@@ -21,6 +24,7 @@ public class MinesweeperView extends View {
     public static final String LOG_TAG = "TAG";
 
     private int SIZE;
+    private int numFlags;
 
     private Paint paintGridLine;
     private Paint paintText;
@@ -30,6 +34,7 @@ public class MinesweeperView extends View {
         super(context, attrs);
 
         SIZE = MinesweeperModel.SIZE;
+        numFlags = MinesweeperModel.NUM_MINES;
 
         paintGridLine = new Paint();
         paintGridLine.setColor(Color.BLACK);
@@ -39,7 +44,7 @@ public class MinesweeperView extends View {
         paintText = new Paint();
         paintText.setColor(Color.RED);
         paintGridLine.setStyle(Paint.Style.STROKE);
-        paintText.setTextSize(getFontSize(SIZE));
+        paintText.setTextSize(getScaledSize(SIZE));
         paintText.setTypeface(Typeface.create(
                 Typeface.createFromAsset(getContext().getAssets(), "fonts/munro.ttf"),
                 Typeface.NORMAL));
@@ -47,8 +52,8 @@ public class MinesweeperView extends View {
         bitmapFlag = BitmapFactory.decodeResource(getResources(), R.drawable.flag);
     }
 
-    private float getFontSize(int size) {
-        return 108;
+    private float getScaledSize(int size) {
+        return ((float) 720 / size);
     }
 
     @Override
@@ -56,15 +61,15 @@ public class MinesweeperView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         bitmapFlag = Bitmap.createScaledBitmap(bitmapFlag,
-                getWidth() / SIZE, getHeight() / SIZE, false);
+                (int) (0.75 * getWidth() / SIZE), (int) (0.75 * getHeight() / SIZE), false);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        drawLines(canvas);
         drawVisibleGrid(canvas);
+        drawLines(canvas);
     }
 
     private void drawLines(Canvas canvas) {
@@ -83,11 +88,11 @@ public class MinesweeperView extends View {
 
                 if (status == MinesweeperModel.OPEN) {
                     canvas.drawText(Integer.toString(MinesweeperModel.getInstance().getNumOfNeighboringMines(i, j)),
-                            j * getWidth() / SIZE, (i + 1) * getHeight() / SIZE,
+                            (j + 0.4f) * getWidth() / SIZE, (i + 0.75f) * getHeight() / SIZE,
                             paintText);
                 } else if (status == MinesweeperModel.FLAG) {
                     canvas.drawBitmap(bitmapFlag,
-                            j * getWidth() / SIZE, i * getHeight() / SIZE,
+                            (j + 0.1f) * getWidth() / SIZE, (i + 0.1f) * getHeight() / SIZE,
                             null);
                 }
             }
@@ -107,12 +112,13 @@ public class MinesweeperView extends View {
                     if (MinesweeperModel.getInstance().getFieldStatus(
                             point.x, point.y) == MinesweeperModel.FLAG) {
                         MinesweeperModel.getInstance().removeFlag(point.x, point.y);
+                        numFlags += 1;
                     } else {
                         if (!MinesweeperModel.getInstance().isMineAtLocation(point.x, point.y)) {
                             MinesweeperModel.getInstance().clickField(point.x, point.y);
                         } else {
                             // game over (lost)
-                            Log.d("Hello", "You lost!");
+                            Toast.makeText(getContext(), "You lost!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     return true;
@@ -122,8 +128,9 @@ public class MinesweeperView extends View {
                 public void onLongPress(MotionEvent e) {
                     Point point = getPoint(e);
                     if (MinesweeperModel.getInstance().getFieldStatus(
-                            point.x, point.y) == MinesweeperModel.CLOSE) {
+                            point.x, point.y) == MinesweeperModel.CLOSE && numFlags > 0) {
                         MinesweeperModel.getInstance().setFlag(point.x, point.y);
+                        numFlags -= 1;
                     }
                 }
             });
@@ -131,8 +138,22 @@ public class MinesweeperView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = gestureDetector.onTouchEvent(event);
+        if (MinesweeperModel.getInstance().isFullGridVisible()
+                && numFlags == 0) {
+            gameWon();
+        }
         invalidate();
         return result;
+    }
+
+    private void gameWon() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), "You won!", Toast.LENGTH_SHORT).show();
+            }
+        }, 500);
     }
 
     private Point getPoint(MotionEvent e) {
