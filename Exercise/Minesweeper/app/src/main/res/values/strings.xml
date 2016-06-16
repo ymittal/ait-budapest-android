@@ -9,4 +9,8 @@
     <string name="tv_size">Size of grid: %1$d x %1$d</string>
     <string name="tv_mines">Number of flags: %1$d</string>
     <string name="tv_settings_change_message">Any changes would abort current game.</string>
+    <string name="toast_game_lost">Oh no, you lost!</string>
+    <string name="toast_game_won">Congrats, you won!</string>
+    <string name="path_to_font_munro">fonts/munro.ttf</string>
+    <string name="toast_help">Help</string>
 </resources>

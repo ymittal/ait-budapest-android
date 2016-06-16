@@ -8,29 +8,29 @@ import java.util.Random;
 import hu.ait.android.minesweeper.MainActivity;
 
 public class MinesweeperModel {
+    public static final short CLOSE = 0; // not clicked yet
+    public static final short OPEN = 1;
+    public static final short FLAG = 2;
+
     private static int SIZE = MainActivity.SIZE;
     private static int NUM_MINES = MainActivity.NUM_MINES;
 
     private static MinesweeperModel instance = null;
+
+    private int[][] model;
+    private short[][] board;
+
+    private MinesweeperModel() {
+        initModel();
+        initBoard();
+        Log.d("LOG_TAG", SIZE + " " + NUM_MINES + " " + Arrays.deepToString(model));
+    }
 
     public static MinesweeperModel getInstance() {
         if (instance == null) {
             instance = new MinesweeperModel();
         }
         return instance;
-    }
-
-    private int[][] model;
-    private short[][] board;
-
-    public static final short CLOSE = 0; // not clicked yet
-    public static final short OPEN = 1;
-    public static final short FLAG = 2;
-
-    private MinesweeperModel() {
-        initModel();
-        initBoard();
-        Log.d("LOG_TAG", SIZE + " " + NUM_MINES + " " + Arrays.deepToString(model));
     }
 
     private void initModel() {
