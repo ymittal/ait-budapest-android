@@ -5,15 +5,15 @@ import android.util.Log;
 import java.util.Arrays;
 import java.util.Random;
 
-import hu.ait.android.minesweeper.MainActivity;
+import hu.ait.android.minesweeper.view.MinesweeperView;
 
 public class MinesweeperModel {
     public static final short CLOSE = 0; // not clicked yet
     public static final short OPEN = 1;
     public static final short FLAG = 2;
 
-    private static int SIZE = MainActivity.SIZE;
-    private static int NUM_MINES = MainActivity.NUM_MINES;
+    public static int SIZE = 6; // default 6x6 grid
+    public static int NUM_MINES = 6;
 
     private static MinesweeperModel instance = null;
 
@@ -127,5 +127,6 @@ public class MinesweeperModel {
         instance = null;
         SIZE = size;
         NUM_MINES = numMines;
+        MinesweeperView.resetFlagsLeft(numMines);
     }
 }

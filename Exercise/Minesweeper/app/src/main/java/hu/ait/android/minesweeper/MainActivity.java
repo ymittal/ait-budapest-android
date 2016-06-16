@@ -3,8 +3,10 @@ package hu.ait.android.minesweeper;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,12 +15,12 @@ import hu.ait.android.minesweeper.model.MinesweeperModel;
 import hu.ait.android.minesweeper.view.MinesweeperView;
 
 public class MainActivity extends AppCompatActivity {
-    public static int SIZE = 6;
-    public static int NUM_MINES = 6;
-
-    private TextView tvNumFlags;
+    private TextView tvFlagsLeft;
     private ImageView emoticon;
     private MinesweeperView gameboard;
+
+    static int SIZE = MinesweeperModel.SIZE;
+    static int NUM_MINES = MinesweeperModel.NUM_MINES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,19 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
 
-        tvNumFlags = (TextView) findViewById(R.id.tvNumFlags);
-        emoticon = (ImageView) findViewById(R.id.emoticon);
-
+        tvFlagsLeft = (TextView) findViewById(R.id.tvFlagsLeft);
         gameboard = (MinesweeperView) findViewById(R.id.gameboard);
-        gameboard.setEnabled(true);
+
+        emoticon = (ImageView) findViewById(R.id.emoticon);
+        emoticon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("LOG_TAG", "Restart called");
+                MinesweeperModel.getInstance().resetModel(SIZE, NUM_MINES);
+                gameOver(R.drawable.face);
+                gameboard.invalidate();
+            }
+        });
     }
 
     @Override
@@ -60,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateNumFlags(int numFlags) {
-        tvNumFlags.setText(Integer.toString(numFlags));
+    public void updateFlagsLeft(int flagsLeft) {
+        tvFlagsLeft.setText(Integer.toString(flagsLeft));
     }
 
     public void gameOver(int resId) {
         emoticon.setImageResource(resId);
-        gameboard.setEnabled(false);
     }
 }
