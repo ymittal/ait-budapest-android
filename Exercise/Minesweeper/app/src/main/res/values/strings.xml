@@ -7,5 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="btn_okay">OK</string>
     <string name="tv_size">Size of grid: %1$d x %1$d</string>
-    <string name="tv_flags">Number of flags: %1$d</string>
+    <string name="tv_mines">Number of flags: %1$d</string>
+    <string name="tv_settings_change_message">Any changes would abort current game.</string>
 </resources>

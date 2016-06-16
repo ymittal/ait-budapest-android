@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,8 +22,6 @@ import hu.ait.android.minesweeper.R;
 import hu.ait.android.minesweeper.model.MinesweeperModel;
 
 public class MinesweeperView extends View {
-    public static final String LOG_TAG = "TAG";
-
     private int SIZE;
     private int numFlags;
 
@@ -33,8 +32,8 @@ public class MinesweeperView extends View {
     public MinesweeperView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        SIZE = MinesweeperModel.SIZE;
-        numFlags = MinesweeperModel.NUM_MINES;
+        SIZE = MainActivity.SIZE;
+        numFlags = MainActivity.NUM_MINES;
 
         paintGridLine = new Paint();
         paintGridLine.setColor(Color.BLACK);
@@ -70,6 +69,7 @@ public class MinesweeperView extends View {
 
         drawVisibleGrid(canvas);
         drawLines(canvas);
+        ((MainActivity) getContext()).updateNumFlags(numFlags);
     }
 
     private void drawLines(Canvas canvas) {

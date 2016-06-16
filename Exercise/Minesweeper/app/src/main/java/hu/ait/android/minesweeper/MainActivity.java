@@ -3,24 +3,39 @@ package hu.ait.android.minesweeper;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import hu.ait.android.minesweeper.model.MinesweeperModel;
-import hu.ait.android.minesweeper.view.MinesweeperView;
 
 public class MainActivity extends AppCompatActivity {
     public static int SIZE = 6;
     public static int NUM_MINES = 6;
 
+    private TextView tvNumFlags;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if (getIntent().hasExtra(SettingsDialog.NEW_SIZE)) {
+            SIZE = getIntent().getIntExtra(SettingsDialog.NEW_SIZE, 6);
+            NUM_MINES = getIntent().getIntExtra(SettingsDialog.NEW_NUM_MINES, 6);
+            MinesweeperModel.getInstance().resetModel(SIZE, NUM_MINES);
+        }
 
-        MinesweeperView board = (MinesweeperView) findViewById(R.id.gameboard);
+        setContentView(R.layout.activity_main);
+        tvNumFlags = (TextView) findViewById(R.id.tvNumFlags);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SettingsDialog.NEW_SIZE, SIZE);
+        outState.putInt(SettingsDialog.NEW_NUM_MINES, NUM_MINES);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -43,5 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateNumFlags(int numFlags) {
+        tvNumFlags.setText(Integer.toString(numFlags));
     }
 }

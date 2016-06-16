@@ -5,9 +5,11 @@ import android.util.Log;
 import java.util.Arrays;
 import java.util.Random;
 
+import hu.ait.android.minesweeper.MainActivity;
+
 public class MinesweeperModel {
-    public static int SIZE = 5;
-    public static int NUM_MINES = 3;
+    private static int SIZE = MainActivity.SIZE;
+    private static int NUM_MINES = MainActivity.NUM_MINES;
 
     private static MinesweeperModel instance = null;
 
@@ -18,8 +20,8 @@ public class MinesweeperModel {
         return instance;
     }
 
-    private int[][] model = new int[SIZE][SIZE];
-    private short[][] board = new short[SIZE][SIZE];
+    private int[][] model;
+    private short[][] board;
 
     public static final short CLOSE = 0; // not clicked yet
     public static final short OPEN = 1;
@@ -28,10 +30,11 @@ public class MinesweeperModel {
     private MinesweeperModel() {
         initModel();
         initBoard();
-        Log.d("LOG_TAG", Arrays.deepToString(model));
+        Log.d("LOG_TAG", SIZE + " " + NUM_MINES + " " + Arrays.deepToString(model));
     }
 
     private void initModel() {
+        model = new int[SIZE][SIZE];
         Random r = new Random();
         int minesOnModel = 0;
 
@@ -53,6 +56,7 @@ public class MinesweeperModel {
     }
 
     private void initBoard() {
+        board = new short[SIZE][SIZE];
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 board[i][j] = CLOSE;
@@ -117,5 +121,11 @@ public class MinesweeperModel {
 
     public boolean isMineAtLocation(int x, int y) {
         return model[x][y] == -1;
+    }
+
+    public void resetModel(int size, int numMines) {
+        instance = null;
+        SIZE = size;
+        NUM_MINES = numMines;
     }
 }
