@@ -39,8 +39,6 @@ public class MinesweeperView extends View {
         initPaintGridLine();
         initPaintText();
         decodeBitmaps();
-
-        Log.d("LOG_TAG", "View was created again!");
     }
 
     private void decodeBitmaps() {
@@ -88,7 +86,6 @@ public class MinesweeperView extends View {
         if (hasLostGame)
             hasLostGame = false;
         ((MainActivity) getContext()).updateFlagsLeft(flagsLeft);
-        Log.d("LOG_TAG", "Number of flags displyed: " + flagsLeft);
     }
 
     private void drawLines(Canvas canvas) {

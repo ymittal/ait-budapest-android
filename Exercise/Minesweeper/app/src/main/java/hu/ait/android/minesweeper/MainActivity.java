@@ -1,12 +1,13 @@
 package hu.ait.android.minesweeper;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvFlagsLeft;
     private ImageView emoticon;
     private MinesweeperView gameboard;
+    private Chronometer timer;
 
     static int SIZE = MinesweeperModel.SIZE;
     static int NUM_MINES = MinesweeperModel.NUM_MINES;
@@ -32,20 +34,27 @@ public class MainActivity extends AppCompatActivity {
             MinesweeperModel.getInstance().resetModel(SIZE, NUM_MINES);
         }
         setContentView(R.layout.activity_main);
+        findViews();
 
-        tvFlagsLeft = (TextView) findViewById(R.id.tvFlagsLeft);
-        gameboard = (MinesweeperView) findViewById(R.id.gameboard);
+        timer.start();
 
-        emoticon = (ImageView) findViewById(R.id.emoticon);
         emoticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("LOG_TAG", "Restart called");
                 MinesweeperModel.getInstance().resetModel(SIZE, NUM_MINES);
-                gameOver(R.drawable.face);
                 gameboard.invalidate();
+                gameOver(R.drawable.face);
+                timer.setBase(SystemClock.elapsedRealtime());
+                timer.start();
             }
         });
+    }
+
+    private void findViews() {
+        tvFlagsLeft = (TextView) findViewById(R.id.tvFlagsLeft);
+        gameboard = (MinesweeperView) findViewById(R.id.gameboard);
+        emoticon = (ImageView) findViewById(R.id.emoticon);
+        timer = (Chronometer) findViewById(R.id.timer);
     }
 
     @Override
@@ -76,5 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void gameOver(int resId) {
         emoticon.setImageResource(resId);
+        timer.stop();
     }
 }

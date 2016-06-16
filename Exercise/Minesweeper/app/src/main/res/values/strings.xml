@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">Minesweeper</string>
+    <string name="app_name">Minesweeper Redefined</string>
     <string name="toast_about">This application was developed by Yash Mittal at AIT-Budapest.</string>
     <string name="settings_dialog_label">Settings</string>
     <string name="action_about">About</string>
-    <string name="action_help">Help</string>
+    <string name="action_help">Help
+    </string>
     <string name="action_settings">Settings</string>
     <string name="btn_okay">OK</string>
     <string name="tv_size">Size of grid: %1$d x %1$d</string>
@@ -12,5 +13,8 @@
     <string name="toast_game_lost">Oh no, you lost!</string>
     <string name="toast_game_won">Congrats, you won!</string>
     <string name="path_to_font_munro">fonts/munro.ttf</string>
-    <string name="toast_help">Help</string>
+    <string name="toast_help">Welcome to Minesweeper Redefined\n\nYou goal is to place flags (long press) on a field by looking
+        at numbers which show up when you click any cell without a mine. You can tap and remove a flag too!\n\nYou may restart
+        the game anytime by clicking on the emoticon.\n\nHave fun!
+    </string>
 </resources>
