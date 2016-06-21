@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <gradient
+        android:centerX=".5"
+        android:centerY=".5"
+        android:endColor="#FFFF88"
+        android:gradientRadius="20"
+        android:startColor="#FFFF00"
+        android:type="radial" />
+
+    <!-- size tag is useless if layout_dimen are defined -->
+    <size
+        android:width="100dp"
+        android:height="100dp" />
+
+</shape>
