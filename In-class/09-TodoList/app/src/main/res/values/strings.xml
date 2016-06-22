@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TodoList</string>
+    <string name="sb_item_deleted">Item has been deleted</string>
+    <string name="sb_button_undo">UNDO</string>
 </resources>

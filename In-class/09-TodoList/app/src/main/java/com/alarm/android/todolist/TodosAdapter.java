@@ -1,5 +1,6 @@
 package com.alarm.android.todolist;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +39,21 @@ public class TodosAdapter extends RecyclerView.Adapter<TodoViewHolder> implement
     }
 
     @Override
-    public void onItemDismiss(int position, RecyclerView recyclerView) {
+    public void onItemDismiss(final int position, RecyclerView recyclerView) {
+        final Todo todoToBeRemoved = todos.get(position);
         todos.remove(position);
         notifyItemRemoved(position);
+
+        Snackbar snackbar = Snackbar
+                .make(recyclerView, R.string.sb_item_deleted, Snackbar.LENGTH_LONG)
+                .setAction(R.string.sb_button_undo, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        todos.add(position, todoToBeRemoved);
+                        notifyItemInserted(position);
+                    }
+                });
+        snackbar.show();
     }
 
     @Override
