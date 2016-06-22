@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +15,13 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView rvTodos = (RecyclerView) findViewById(R.id.rvTodos);
         rvTodos.setLayoutManager(new LinearLayoutManager(this));
-        rvTodos.setAdapter(new TodosAdapter());
+
+        TodosAdapter todosAdapter = new TodosAdapter();
+        rvTodos.setAdapter(todosAdapter);
+
+        ItemTouchHelper.Callback callback =
+                new TodoItemTouchHelperCallback(todosAdapter, rvTodos);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(rvTodos);
     }
 }

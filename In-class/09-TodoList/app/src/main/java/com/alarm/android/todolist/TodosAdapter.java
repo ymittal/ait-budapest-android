@@ -6,9 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class TodosAdapter extends RecyclerView.Adapter<TodoViewHolder> {
+public class TodosAdapter extends RecyclerView.Adapter<TodoViewHolder> implements TodoTouchHelperAdapter {
     List<Todo> todos = new ArrayList<>();
 
     public TodosAdapter() {
@@ -34,5 +35,25 @@ public class TodosAdapter extends RecyclerView.Adapter<TodoViewHolder> {
     @Override
     public int getItemCount() {
         return todos.size();
+    }
+
+    @Override
+    public void onItemDismiss(int position, RecyclerView recyclerView) {
+        todos.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(todos, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(todos, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
     }
 }
