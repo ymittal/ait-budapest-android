@@ -1,10 +1,14 @@
-package com.alarm.android.todolist;
+package com.alarm.android.todolist.item;
 
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.alarm.android.todolist.R;
+import com.alarm.android.todolist.gesture.TodoTouchHelperAdapter;
+import com.alarm.android.todolist.model.Todo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +18,7 @@ public class TodosAdapter extends RecyclerView.Adapter<TodoViewHolder> implement
     List<Todo> todos = new ArrayList<>();
 
     public TodosAdapter() {
-        for (int i = 0; i < 20; ++i) {
+        for (int i = 0; i < 5; ++i) {
             todos.add(new Todo("Todo " + i, false));
         }
     }
@@ -68,5 +72,10 @@ public class TodosAdapter extends RecyclerView.Adapter<TodoViewHolder> implement
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+    }
+
+    public void addItem(Todo newTodo){
+        todos.add(newTodo);
+        notifyDataSetChanged();
     }
 }

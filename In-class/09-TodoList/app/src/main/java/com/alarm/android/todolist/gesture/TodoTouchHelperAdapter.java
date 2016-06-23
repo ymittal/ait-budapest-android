@@ -1,4 +1,4 @@
-package com.alarm.android.todolist;
+package com.alarm.android.todolist.gesture;
 
 import android.support.v7.widget.RecyclerView;
 

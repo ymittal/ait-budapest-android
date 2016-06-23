@@ -1,9 +1,11 @@
-package com.alarm.android.todolist;
+package com.alarm.android.todolist.item;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.alarm.android.todolist.R;
 
 public class TodoViewHolder extends RecyclerView.ViewHolder {
     public final TextView tvTodo;

@@ -1,4 +1,4 @@
-package com.alarm.android.todolist;
+package com.alarm.android.todolist.model;
 
 public class Todo {
     private String title;
