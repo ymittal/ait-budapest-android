@@ -32,6 +32,10 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpenseViewHolder> imp
         Expense expense = expenses.get(position);
         holder.tvDesc.setText(expense.getDesc());
         holder.tvAmount.setText(Float.toString(expense.getAmount()));
+        if (expense.getIsExpense())
+            holder.imageview.setImageResource(R.drawable.down);
+        else
+            holder.imageview.setImageResource(R.drawable.up);
         holder.itemView.setTag(expense);
     }
 

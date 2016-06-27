@@ -18,7 +18,8 @@ public class NewExpenseDialog extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_expense_dialog);
+        setContentView(R.layout.activity_new_expense);
+        this.setTitle(getString(R.string.activity_new_expense_title));
 
         getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -34,10 +35,9 @@ public class NewExpenseDialog extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent saveIntent = new Intent();
-                saveIntent.putExtra(EXPENSE_DESC, etExpense.getText().toString());
-                saveIntent.putExtra(EXPENSE_AMOUNT, Float.parseFloat(etAmount.getText().toString()));
-                saveIntent.putExtra(
-                        EXPENSE_TOGGLE, toggle.isChecked());
+                saveIntent.putExtra(EXPENSE_DESC, etExpense.getText().toString())
+                        .putExtra(EXPENSE_AMOUNT, Float.parseFloat(etAmount.getText().toString()))
+                        .putExtra(EXPENSE_TOGGLE, toggle.isChecked());
                 setResult(Activity.RESULT_OK, saveIntent);
                 finish();
             }

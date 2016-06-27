@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">ExpenseManager</string>
+    <string name="app_name">Expense Manager</string>
     <string name="sb_button_undo">UNDO</string>
     <string name="sb_item_deleted">Item deleted</string>
     <string name="btn_save">Save</string>
     <string name="toast_add_fail">Todo was not added!</string>
+    <string name="activity_new_expense_title">New Expense</string>
+    <string name="toggle_text_off">Income</string>
+    <string name="toggle_text_on">Expense</string>
+    <string name="hint_et_amount">Enter amount here</string>
+    <string name="hint_et_expense">Enter expense description</string>
 </resources>
