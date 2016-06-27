@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ExpenseManager</string>
+    <string name="sb_button_undo">UNDO</string>
+    <string name="sb_item_deleted">Item deleted</string>
+    <string name="btn_save">Save</string>
+    <string name="toast_add_fail">Todo was not added!</string>
+</resources>
