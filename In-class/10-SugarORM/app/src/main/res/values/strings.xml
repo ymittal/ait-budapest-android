@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SugarORM</string>
+    <string name="et_note">Enter note here</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_query">Query</string>
+    <string name="btn_del_all">Delete all</string>
+    <string name="tv_data"></string>
+    <string name="toast_new_note">New note added!</string>
+    <string name="toast_del_all">All notes deleted!</string>
 </resources>

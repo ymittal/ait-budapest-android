@@ -14,7 +14,7 @@
         android:id="@+id/etNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter note here" />
+        android:hint="@string/et_note" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,21 +27,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save" />
+            android:text="@string/btn_save" />
 
         <Button
             android:id="@+id/btnQuery"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Query" />
+            android:text="@string/btn_query" />
 
         <Button
             android:id="@+id/btnDeleteAll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete all" />
+            android:text="@string/btn_del_all" />
 
     </LinearLayout>
 
@@ -49,6 +49,6 @@
         android:id="@+id/tvData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-"
-        android:textSize="22sp" />
+        android:text="@string/tv_data"
+        android:textSize="16sp" />
 </LinearLayout>

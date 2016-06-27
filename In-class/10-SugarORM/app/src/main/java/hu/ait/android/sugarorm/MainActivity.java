@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
@@ -32,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Note newNote = new Note(etNote.getText().toString(),
                         new Date(System.currentTimeMillis()).toString());
-
                 newNote.save();
+                Toast.makeText(MainActivity.this, R.string.toast_new_note, Toast.LENGTH_SHORT).show();
 
+                etNote.getText().clear();
+                refreshTextView();
             }
         });
 
@@ -42,13 +45,29 @@ public class MainActivity extends AppCompatActivity {
         btnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Note> notes = Note.listAll(Note.class);
-
-                tvData.setText("");
-                for (Note note : notes) {
-                    tvData.append(note.getDescription() + "\n" + note.getCreateDate() + "\n\n");
-                }
+                refreshTextView();
             }
         });
+
+        Button btnDeleteAll = (Button) findViewById(R.id.btnDeleteAll);
+        btnDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Note.deleteAll(Note.class);
+                refreshTextView();
+                Toast.makeText(MainActivity.this, R.string.toast_del_all, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        refreshTextView();
+    }
+
+    private void refreshTextView() {
+        List<Note> notes = Note.listAll(Note.class);
+
+        tvData.setText("");
+        for (Note note : notes) {
+            tvData.append(note.getDescription() + "\n" + note.getCreateDate() + "\n\n");
+        }
     }
 }
