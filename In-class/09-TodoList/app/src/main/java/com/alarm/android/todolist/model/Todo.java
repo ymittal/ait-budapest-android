@@ -1,8 +1,13 @@
 package com.alarm.android.todolist.model;
 
-public class Todo {
+import com.orm.SugarRecord;
+
+public class Todo extends SugarRecord {
     private String title;
     private boolean isDone;
+
+    public Todo() {
+    }
 
     public Todo(String title, boolean isDone) {
         this.title = title;
