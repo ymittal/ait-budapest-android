@@ -1,24 +1,18 @@
 package hu.ait.android.moneyexchangerates;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONObject;
-
 import hu.ait.android.moneyexchangerates.model.MoneyResult;
-import hu.ait.android.moneyexchangerates.network.HttpGetTask;
+import hu.ait.android.moneyexchangerates.network.MoneyRatesService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private TextView tvData;
@@ -30,26 +24,31 @@ public class MainActivity extends AppCompatActivity {
 
         tvData = (TextView) findViewById(R.id.tvData);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.fixer.io")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final MoneyRatesService moneyRatesService = retrofit.create(
+                MoneyRatesService.class);
+
         Button btnGetRates = (Button) findViewById(R.id.btnGetRates);
         btnGetRates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpGetTask(getApplicationContext()).execute(
-                        "http://api.fixer.io/latest?base=INR");
+
+                moneyRatesService.getRates("USD").enqueue(new Callback<MoneyResult>() {
+                    @Override
+                    public void onResponse(Call<MoneyResult> call, Response<MoneyResult> response) {
+                        tvData.setText("1 USD = " + response.body().getRates().gethUF()
+                                + " HUF on " + response.body().getDate());
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoneyResult> call, Throwable t) {
+                        tvData.setText(t.getMessage());
+                    }
+                });
             }
         });
-
-        EventBus.getDefault().register(this);
-    }
-
-    @Subscribe
-    public void onMoneyResult(MoneyResult moneyResult) {
-        tvData.setText(moneyResult.getRates().gethUF().toString());
-    }
-
-    @Override
-    protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
     }
 }
