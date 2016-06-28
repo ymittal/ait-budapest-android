@@ -13,15 +13,15 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
 
 import hu.ait.android.moneyexchangerates.model.MoneyResult;
 import hu.ait.android.moneyexchangerates.network.HttpGetTask;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String ACTION_RATES_RESULT = "ACTION_RATES_RESULT";
     private TextView tvData;
-    private RatesReceiver ratesReceiver = new RatesReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,36 +38,18 @@ public class MainActivity extends AppCompatActivity {
                         "http://api.fixer.io/latest?base=INR");
             }
         });
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe
+    public void onMoneyResult(MoneyResult moneyResult) {
+        tvData.setText(moneyResult.getRates().gethUF().toString());
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(
-                ratesReceiver, new IntentFilter(ACTION_RATES_RESULT)
-        );
-    }
-
-    @Override
-    protected void onStop() {
-        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(
-                ratesReceiver);
-        super.onStop();
-    }
-
-    private class RatesReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String result = intent.getStringExtra(HttpGetTask.KEY_RESULT);
-
-            try {
-                MoneyResult moneyResult = new Gson().fromJson(result, MoneyResult.class);
-                tvData.setText("1 INR = " + moneyResult.getRates().gethUF() + " HUF on "
-                        + moneyResult.getDate());
-
-            } catch (Exception e) {
-                tvData.setText(result + "\n" + e.getMessage());
-            }
-        }
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

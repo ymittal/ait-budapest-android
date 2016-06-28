@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import hu.ait.android.moneyexchangerates.MainActivity;
+import hu.ait.android.moneyexchangerates.model.MoneyResult;
 
 public class HttpGetTask extends AsyncTask<String, Void, String> {
-    public static final String KEY_RESULT = "KEY_RESULT";
     private Context context;
 
     public HttpGetTask(Context context) {
@@ -63,9 +67,7 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Intent i = new Intent(MainActivity.ACTION_RATES_RESULT);
-        i.putExtra(KEY_RESULT, result);
-
-        LocalBroadcastManager.getInstance(context).sendBroadcast(i);
+        MoneyResult moneyResult = new Gson().fromJson(result, MoneyResult.class);
+        EventBus.getDefault().post(moneyResult);
     }
 }
