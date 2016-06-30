@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+
 public class MyViewPagerAdaper extends FragmentPagerAdapter {
     public MyViewPagerAdaper(FragmentManager supportFragmentManager) {
         super(supportFragmentManager);
@@ -33,7 +35,7 @@ public class MyViewPagerAdaper extends FragmentPagerAdapter {
         // Todo: extract strings
         switch (position) {
             case 0:
-                return "Basic";
+                return "Basic Information";
             case 1:
                 return "Detailed";
             default:
