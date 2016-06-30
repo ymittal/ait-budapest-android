@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="72dp"
+    android:layout_height="72dp"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/circle">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:fitsSystemWindows="true"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher" />
+</FrameLayout>
