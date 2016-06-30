@@ -11,6 +11,8 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="224dp">
 
+        <!-- TODO: fix padding by using a FrameLayout -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

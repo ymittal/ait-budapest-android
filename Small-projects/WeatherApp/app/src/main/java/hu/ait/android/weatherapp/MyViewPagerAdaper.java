@@ -3,10 +3,9 @@ package hu.ait.android.weatherapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import hu.ait.android.weatherapp.fragment.BasicInfoFragment;
+import hu.ait.android.weatherapp.fragment.DetailsFragment;
 
 public class MyViewPagerAdaper extends FragmentPagerAdapter {
     public MyViewPagerAdaper(FragmentManager supportFragmentManager) {
