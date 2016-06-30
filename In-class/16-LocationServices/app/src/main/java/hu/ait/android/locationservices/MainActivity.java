@@ -2,6 +2,8 @@ package hu.ait.android.locationservices;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,11 +24,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         LocationListener {
 
     private TextView tvData;
+    private Location currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +150,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            if (currentLocation != null) {
+                showReadableLocation();
+            }
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -186,6 +195,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
+        currentLocation = location;
         tvData.setText(
                 "Latitude: " + location.getLatitude() + "\n"
                         + "Longitude: " + location.getLongitude() + "\n"
@@ -195,7 +205,6 @@ public class MainActivity extends AppCompatActivity
                         + "Altitude: " + location.getAltitude() + "\n"
 
         );
-
     }
 
     @Override
@@ -211,5 +220,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public void showReadableLocation() {
+        Geocoder gc = new Geocoder(this, Locale.getDefault());
+        List<Address> addrs = null;
+        try {
+            addrs = gc.getFromLocation(currentLocation.getLatitude(),
+                    currentLocation.getLongitude(), 10);
+
+            String address = addrs.get(0).getCountryName() + "\n" +
+                    addrs.get(0).getAddressLine(0) + "\n" +
+                    addrs.get(0).getAddressLine(1) + "\n" +
+                    addrs.get(0).getAddressLine(2);
+
+            Toast.makeText(MainActivity.this, address, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
