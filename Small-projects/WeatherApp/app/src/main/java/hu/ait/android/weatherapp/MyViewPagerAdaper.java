@@ -31,7 +31,6 @@ public class MyViewPagerAdaper extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // Todo: extract strings
         switch (position) {
             case 0:
                 return "Basic Information";

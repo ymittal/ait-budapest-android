@@ -21,7 +21,7 @@ public class AddPlaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
 
-        setTitle("Add Place");
+        setTitle(getString(R.string.activity_add_place_title));
         getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFinishOnTouchOutside(false);
@@ -33,7 +33,7 @@ public class AddPlaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etPlace.getText().toString().equals("")) {
-                    etPlace.setError("Please enter a place");
+                    etPlace.setError(getString(R.string.et_place_error));
                 } else {
                     Intent i = new Intent().putExtra(NEW_PLACE,
                             etPlace.getText().toString());

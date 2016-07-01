@@ -55,7 +55,7 @@ public class PlacesFragment extends Fragment {
                 citiesAdapter.addItem(newCity);
             }
             else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getContext(), "Place could not be added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.toast_add_place_fail, Toast.LENGTH_SHORT).show();
             }
         }
     }

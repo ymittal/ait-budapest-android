@@ -46,9 +46,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> implemen
         cities.remove(position);
         notifyItemRemoved(position);
 
-        // TODO: extract (parameter) string resources
-        Snackbar.make(recyclerView, "City deleted.", Snackbar.LENGTH_LONG)
-                .setAction("UNDO", new View.OnClickListener() {
+        Snackbar.make(recyclerView, R.string.sb_alert, Snackbar.LENGTH_LONG)
+                .setAction(R.string.sb_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         cityToBeRemoved.save();

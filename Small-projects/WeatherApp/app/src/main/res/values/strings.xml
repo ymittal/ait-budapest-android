@@ -2,4 +2,14 @@
     <string name="app_name">Weather Information</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="toast_add_place_fail">Place could not be added.</string>
+    <string name="sb_alert">Place deleted.</string>
+    <string name="sb_btn">UNDO</string>
+    <string name="activity_add_place_title">Add Place</string>
+    <string name="et_place_error">Please enter a place</string>
+    <string name="et_place">Enter new place here</string>
+    <string name="btn_save">Save</string>
+    <string name="tv_nav_header">Weather Information</string>
+    <string name="menu_item_places">Places</string>
+    <string name="menu_item_settings">Settings</string>
 </resources>
