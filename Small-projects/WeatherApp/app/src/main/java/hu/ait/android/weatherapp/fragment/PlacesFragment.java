@@ -1,5 +1,7 @@
 package hu.ait.android.weatherapp.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,11 +15,15 @@ import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import hu.ait.android.weatherapp.AddPlaceActivity;
 import hu.ait.android.weatherapp.R;
 import hu.ait.android.weatherapp.gesture.CityTouchHelperCallback;
 import hu.ait.android.weatherapp.item.CitiesAdapter;
+import hu.ait.android.weatherapp.model.City;
 
 public class PlacesFragment extends Fragment {
+    private int REQUEST_CODE = 1;
+
     private RecyclerView recyclerView;
     private CitiesAdapter citiesAdapter;
 
@@ -33,12 +39,25 @@ public class PlacesFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: launch a city-adder activity to save city using SugarORM
-                Toast.makeText(getContext(), "FAB clicked", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(getContext(), AddPlaceActivity.class),
+                        REQUEST_CODE);
             }
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                City newCity = new City(data.getStringExtra(AddPlaceActivity.NEW_PLACE));
+                citiesAdapter.addItem(newCity);
+            }
+            else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getContext(), "Place could not be added.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void initRecyclerView(View rootView) {
