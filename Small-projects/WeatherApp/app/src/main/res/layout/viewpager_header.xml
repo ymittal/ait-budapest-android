@@ -6,11 +6,10 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:fitsSystemWindows="true"
-        android:src="@mipmap/ic_launcher" />
+        android:fitsSystemWindows="true" />
 
 </FrameLayout>

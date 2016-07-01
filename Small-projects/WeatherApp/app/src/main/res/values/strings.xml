@@ -1,20 +1,22 @@
 <resources>
-    <string name="app_name">Weather Information</string>
+    <string name="app_name">Weather App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="toast_add_place_fail">Place was not added.</string>
     <string name="sb_alert">Place deleted.</string>
     <string name="sb_btn">UNDO</string>
-    <string name="activity_add_place_title">Add a Place</string>
+    <string name="activity_add_place_title">Add a place</string>
     <string name="et_place_error">Please enter a place</string>
     <string name="et_place">Enter a place here</string>
     <string name="btn_save">Save</string>
     <string name="tv_nav_header">Weather Information</string>
-    <string name="menu_item_places">Places</string>
+    <string name="menu_item_places">Your places</string>
     <string name="menu_item_settings">Settings</string>
     <string name="default_units">metric</string>
     <string name="viewpager_basic_tab">Basic Information</string>
     <string name="viewpager_detailed_tab">Detailed</string>
     <string name="viewpager_default_tab">Default</string>
     <string name="fetch_weather_fail">Please check your connection. %1$s</string>
+    <string name="error_no_place">This place does not exist</string>
+    <string name="url_weather_image">http://openweathermap.org/img/w/%1$s.png</string>
 </resources>

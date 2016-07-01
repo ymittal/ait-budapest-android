@@ -18,8 +18,10 @@ import hu.ait.android.weatherapp.model.City;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> implements CityTouchAdapter {
     public static final String PLACE_EXTRA = "PLACE_EXTRA";
+
     private Context context;
     List<City> cities = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     public CitiesAdapter(Context context) {
         this.context = context;
@@ -30,6 +32,12 @@ public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> implemen
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_list_item, parent, false);
         return new CityViewHolder(rowView);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -44,6 +52,13 @@ public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> implemen
                 Intent weatherIntent = new Intent(context, WeatherActivity.class);
                 weatherIntent.putExtra(PLACE_EXTRA, cities.get(position).getName());
                 context.startActivity(weatherIntent);
+            }
+        });
+
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemDismiss(position, recyclerView);
             }
         });
     }
