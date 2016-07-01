@@ -1,22 +1,30 @@
 package hu.ait.android.weatherapp.item;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.ait.android.weatherapp.MainActivity;
 import hu.ait.android.weatherapp.R;
+import hu.ait.android.weatherapp.WeatherActivity;
 import hu.ait.android.weatherapp.gesture.CityTouchAdapter;
 import hu.ait.android.weatherapp.model.City;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> implements CityTouchAdapter {
+    public static final String PLACE_EXTRA = "PLACE_EXTRA";
+    private Context context;
     List<City> cities = new ArrayList<>();
 
-    public CitiesAdapter() {
+    public CitiesAdapter(Context context) {
+        this.context = context;
         cities = City.listAll(City.class);
     }
 
@@ -27,10 +35,19 @@ public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> implemen
     }
 
     @Override
-    public void onBindViewHolder(final CityViewHolder holder, int position) {
+    public void onBindViewHolder(final CityViewHolder holder, final int position) {
         City city = cities.get(position);
         holder.tvCity.setText(city.getName());
         holder.itemView.setTag(city);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent weatherIntent = new Intent(context, WeatherActivity.class);
+                weatherIntent.putExtra(PLACE_EXTRA, cities.get(position).getName());
+                context.startActivity(weatherIntent);
+            }
+        });
     }
 
     @Override

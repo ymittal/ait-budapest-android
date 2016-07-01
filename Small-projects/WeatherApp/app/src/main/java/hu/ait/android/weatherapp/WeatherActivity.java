@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
+import hu.ait.android.weatherapp.item.CitiesAdapter;
+
 public class WeatherActivity extends AppCompatActivity {
     private MaterialViewPager mViewPager;
 
@@ -18,8 +20,10 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-
         this.setTitle("");
+
+        Toast.makeText(WeatherActivity.this, getIntent().getStringExtra(CitiesAdapter.PLACE_EXTRA),
+                Toast.LENGTH_SHORT).show();
 
         mViewPager = (MaterialViewPager) findViewById(R.id.viewpager);
 
@@ -28,6 +32,10 @@ public class WeatherActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
 
+        initViewPager();
+    }
+
+    private void initViewPager() {
         mViewPager.getViewPager().setAdapter(
                 new MyViewPagerAdaper(getSupportFragmentManager()));
 

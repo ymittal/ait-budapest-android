@@ -64,7 +64,7 @@ public class PlacesFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        citiesAdapter = new CitiesAdapter();
+        citiesAdapter = new CitiesAdapter(getContext());
         recyclerView.setAdapter(citiesAdapter);
 
         ItemTouchHelper.Callback callback =
