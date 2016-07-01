@@ -52,8 +52,11 @@ public class WeatherInfo {
         return cod;
     }
 
-    @SerializedName("coord")
+    public String getMessage() {
+        return message;
+    }
 
+    @SerializedName("coord")
     @Expose
     public Coord coord;
     @SerializedName("weather")
@@ -86,5 +89,7 @@ public class WeatherInfo {
     @SerializedName("cod")
     @Expose
     public Integer cod;
-
+    @SerializedName("message")
+    @Expose
+    public String message = "No error";
 }

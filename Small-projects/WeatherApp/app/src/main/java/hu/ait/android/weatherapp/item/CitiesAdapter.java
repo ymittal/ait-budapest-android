@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.ait.android.weatherapp.MainActivity;
 import hu.ait.android.weatherapp.R;
 import hu.ait.android.weatherapp.WeatherActivity;
 import hu.ait.android.weatherapp.gesture.CityTouchAdapter;
