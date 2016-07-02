@@ -3,6 +3,7 @@
     package="hu.ait.android.weatherapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="com.orm.SugarApp"
@@ -23,6 +24,10 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="hu.ait.android.weatherapp.model" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MainActivity"

@@ -35,24 +35,25 @@ public class WeatherActivity extends AppCompatActivity {
         fetchWeatherInfo();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+    private void initUI() {
         setTitle("");
         setContentView(R.layout.activity_weather);
-        initUI();
-    }
 
-    private void initUI() {
         mViewPager = (MaterialViewPager) findViewById(R.id.viewpager);
+        initViewPager();
+        setPagerLogo();
 
         Toolbar toolbar = mViewPager.getToolbar();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+    }
 
-        initViewPager();
+    private void setPagerLogo() {
+        ImageView ivLogo = (ImageView) findViewById(R.id.ivLogo);
+        Glide.with(this).load(getString(R.string.url_weather_image,
+                weatherInfo.getWeather().get(0).getIcon()))
+                .into(ivLogo);
     }
 
     private void initViewPager() {
@@ -97,7 +98,7 @@ public class WeatherActivity extends AppCompatActivity {
                         if (response.body().getCod() == 200
                                 && mPlace.equalsIgnoreCase(response.body().getName())) {
                             weatherInfo = response.body();
-                            setLogo();
+                            initUI();
                         } else {
                             toastToFinish(getString(R.string.error_no_place));
                         }
@@ -105,17 +106,9 @@ public class WeatherActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<WeatherInfo> call, Throwable t) {
-                        toastToFinish(getString(R.string.fetch_weather_fail, t.getMessage()));
+                        toastToFinish(getString(R.string.fetch_weather_fail));
                     }
                 });
-    }
-
-    private void setLogo() {
-        ImageView ivLogo = (ImageView) findViewById(R.id.ivLogo);
-        Glide.with(this).load(getString(R.string.url_weather_image,
-                weatherInfo.getWeather().get(0).getIcon()))
-                .fitCenter()
-                .into(ivLogo);
     }
 
     private void toastToFinish(String message) {

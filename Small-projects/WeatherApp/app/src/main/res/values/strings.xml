@@ -16,7 +16,13 @@
     <string name="viewpager_basic_tab">Basic Information</string>
     <string name="viewpager_detailed_tab">Detailed</string>
     <string name="viewpager_default_tab">Default</string>
-    <string name="fetch_weather_fail">Please check your connection. %1$s</string>
+    <string name="fetch_weather_fail">Please check your connection.</string>
     <string name="error_no_place">This place does not exist</string>
     <string name="url_weather_image">http://openweathermap.org/img/w/%1$s.png</string>
+    <string name="tv_date">Today, %1$s</string>
+    <string name="tv_temp"><![CDATA[<b>Average temp: </b>]]>%1$s\u00B0</string>
+    <string name="tv_desc_main"><![CDATA[<b>Description: </b>]]>%1$s</string>
+    <string name="tv_pressure"><![CDATA[<b>Pressure: </b>]]>%1$s</string>
+    <string name="tv_humid"><![CDATA[<b>Humidity: </b>]]>%1$s%%</string>
+    <string name="tv_wind"><![CDATA[<b>Wind: </b>]]>%1$s</string>
 </resources>

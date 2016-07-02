@@ -39,4 +39,6 @@ dependencies {
 
     // for messenger like FloatingActionButton
     compile 'com.melnykov:floatingactionbutton:1.3.0'
+
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
 }
