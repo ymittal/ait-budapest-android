@@ -91,7 +91,7 @@ public class WeatherActivity extends AppCompatActivity {
                 .build();
 
         final WeatherInfoService service = retrofit.create(WeatherInfoService.class);
-        service.getWeather(mPlace, getString(R.string.default_units), getString(R.string.owm_api_key))
+        service.getWeather(mPlace, Util.getPreferredUnits(getApplicationContext()), getString(R.string.owm_api_key))
                 .enqueue(new Callback<WeatherInfo>() {
                     @Override
                     public void onResponse(Call<WeatherInfo> call, Response<WeatherInfo> response) {

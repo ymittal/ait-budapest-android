@@ -95,12 +95,11 @@
                     android:id="@+id/tvMinTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tvHumidity"
-                    android:layout_alignLeft="@+id/tvMaxTemp"
-                    android:layout_alignStart="@+id/tvMaxTemp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="6dp"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:layout_marginRight="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
