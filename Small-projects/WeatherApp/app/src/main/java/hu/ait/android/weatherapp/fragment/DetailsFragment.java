@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import hu.ait.android.weatherapp.R;
+import hu.ait.android.weatherapp.Util;
 import hu.ait.android.weatherapp.WeatherActivity;
 import hu.ait.android.weatherapp.model.WeatherInfo;
 
@@ -51,7 +52,8 @@ public class DetailsFragment extends Fragment {
         tvHumidity.setText(Html.fromHtml(getResources().getString(R.string.tv_humid,
                 weatherInfo.getMain().getHumidity().intValue())));
         tvWind.setText(Html.fromHtml(getResources().getString(R.string.tv_wind,
-                weatherInfo.getWind().getSpeed())));
+                weatherInfo.getWind().getSpeed(),
+                Util.getWindUnit(getContext()))));
         tvMaxTemp.setText(Integer.toString(weatherInfo.getMain().getTempMax().intValue()) + '\u00B0');
         tvMinTemp.setText(Integer.toString(weatherInfo.getMain().getTempMin().intValue()) + '\u00B0');
     }
