@@ -1,13 +1,19 @@
 package hu.ait.android.alarmmanager;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -60,6 +66,41 @@ public class MainActivity extends AppCompatActivity implements MediaPlayer.OnPre
         if (getIntent().getExtras() != null) {
             if (getIntent().getExtras().getInt(KEY_WAKEUP) == 1) {
                 playWakeUp();
+            }
+        }
+
+        requestNeededPermission();
+    }
+
+    public void requestNeededPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.DISABLE_KEYGUARD)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.DISABLE_KEYGUARD)) {
+                Toast.makeText(MainActivity.this,
+                        "I need it for GPS", Toast.LENGTH_SHORT).show();
+            }
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.DISABLE_KEYGUARD},
+                    101);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 101: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this, "FINE_LOC perm granted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "FINE_LOC perm NOT granted", Toast.LENGTH_SHORT).show();
+                }
+                return;
             }
         }
     }
