@@ -11,6 +11,6 @@ public class AirplaneReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         boolean airplaneState = intent.getBooleanExtra("state", false);
 
-        Toast.makeText(context, "Airplace: " + airplaneState, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Airplane: " + airplaneState, Toast.LENGTH_SHORT).show();
     }
 }
